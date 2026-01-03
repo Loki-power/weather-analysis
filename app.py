@@ -31,7 +31,8 @@ st.line_chart(yearly.set_index("Year")[TEMP_MIN_COL])
 st.line_chart(yearly.set_index("Year")[RAIN_COL])
 from src.forecasting import forecast_series
 
-st.subheader("Future Temperature Trend (Next 10 Years)")
+st.subheader("🔮 Future Temperature Forecast (Next 10 Years)")
+
 forecast = forecast_series(
     yearly,
     "Year",
@@ -39,5 +40,7 @@ forecast = forecast_series(
     periods=10
 )
 
-st.line_chart(forecast.set_index("ds")["yhat"])
+st.line_chart(
+    forecast.set_index("ds")["yhat"]
+)
 
