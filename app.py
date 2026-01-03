@@ -32,5 +32,28 @@ with col2:
     st.plotly_chart(plot_temp_min(temp_min))
 
 st.plotly_chart(plot_rainfall(rain))
+from src.forecasting import forecast_temperature
+from datetime import date
+
+st.header("🔮 Future Weather Forecast")
+
+future_date = st.date_input(
+    "Select a future date",
+    min_value=date.today()
+)
+
+days_ahead = (future_date - df['Date'].max().date()).days
+
+if days_ahead > 0:
+    forecast_max = forecast_temperature(df, 'Temp Max', days_ahead)
+    forecast_min = forecast_temperature(df, 'Temp Min', days_ahead)
+
+    st.subheader("Forecasted Maximum Temperature")
+    st.line_chart(forecast_max.set_index('ds'))
+
+    st.subheader("Forecasted Minimum Temperature")
+    st.line_chart(forecast_min.set_index('ds'))
+else:
+    st.warning("Please select a future date after last available data.")
 
 
