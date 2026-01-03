@@ -3,7 +3,7 @@ import pandas as pd
 def load_data(path):
     df = pd.read_csv(path)
 
-    # Convert Date column safely (handles Excel serial + strings)
+    # Robust date parsing (handles Excel numbers + strings)
     df['Date'] = pd.to_datetime(
         df['Date'],
         errors='coerce',
