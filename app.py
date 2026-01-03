@@ -1,3 +1,8 @@
+st.set_page_config(
+    page_title="Weather Analysis",
+    layout="wide"
+)
+
 import streamlit as st
 from src.data_loader import load_data
 from src.data_cleaning import clean_data
@@ -15,23 +20,23 @@ from src.visualization import (
 st.set_page_config(page_title="Weather Analysis", layout="wide")
 
 st.title("🌦️ Historical Weather Data Analysis (1951–Present)")
+st.markdown("---")
 
-df = load_data("data/raw_weather.csv")
-df = clean_data(df)
-
-temp_max = yearly_avg_temp_max(df)
-temp_min = yearly_avg_temp_min(df)
-rain = yearly_rainfall(df)
+st.subheader("🌡️ Temperature Trends")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.plotly_chart(plot_temp_max(temp_max))
+    st.plotly_chart(plot_temp_max(temp_max), use_container_width=True)
 
 with col2:
-    st.plotly_chart(plot_temp_min(temp_min))
+    st.plotly_chart(plot_temp_min(temp_min), use_container_width=True)
 
-st.plotly_chart(plot_rainfall(rain))
+st.markdown("---")
+st.subheader("🌧️ Rainfall Pattern")
+
+st.plotly_chart(plot_rainfall(rain), use_container_width=True)
+
 from src.forecasting import forecast_temperature
 from datetime import date
 

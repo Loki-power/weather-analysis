@@ -5,5 +5,6 @@ def yearly_avg_temp_min(df):
     return df.groupby(df['Date'].dt.year)['Temp Min'].mean()
 
 def yearly_rainfall(df):
-    return df.groupby(df['Date'].dt.year)['Rain'].sum()
+    yearly = df.groupby(df['Date'].dt.year)['Rain'].sum()
+    return yearly
 
