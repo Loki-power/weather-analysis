@@ -30,20 +30,6 @@ yearly = df.groupby("Year").agg({
 st.line_chart(yearly.set_index("Year")[TEMP_MAX_COL])
 st.line_chart(yearly.set_index("Year")[TEMP_MIN_COL])
 st.line_chart(yearly.set_index("Year")[RAIN_COL])
-
-
-st.subheader("🔮 Future Temperature Forecast (Next 10 Years)")
-
-forecast = forecast_series(
-    yearly,
-    "Year",
-    TEMP_MAX_COL,
-    periods=10
-)
-
-st.line_chart(
-    forecast.set_index("ds")["yhat"]
-)
 import streamlit as st
 from src.forecasting import forecast_for_date
 
