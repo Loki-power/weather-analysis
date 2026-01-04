@@ -9,7 +9,7 @@ df = load_data(DATA_PATH)
 # ---------------- CHECK ----------------
 st.title("Historical Weather Data Analysis (1951–Present)")
 st.write("Sample Data")
-st.dataframe(df.head())
+#st.dataframe(df.head())
 
 # ---------------- COLUMN NAMES ----------------
 # Change these if CSV column names differ
