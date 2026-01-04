@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 from src.data_loader import load_data
 
@@ -63,5 +64,22 @@ if st.button("Predict Weather"):
     col1.metric("🌡️ Max Temp (°C)", max_temp)
     col2.metric("🌡️ Min Temp (°C)", min_temp)
     col3.metric("🌧️ Rainfall (mm)", rain)
+
+st.markdown("## 🔮 Predict Weather for Any Future Date")
+
+input_date = st.date_input(
+    "Select a future date",
+    value=pd.to_datetime("2030-01-01")
+)
+
+if st.button("Predict Temperature"):
+    prediction = forecast_for_date(
+        df,
+        date_col="Date",
+        value_col="Temp Max",
+        target_date=input_date
+    )
+
+    st.success(f"🌡️ Predicted Max Temperature on {input_date}: **{prediction:.2f} °C**")
 
 

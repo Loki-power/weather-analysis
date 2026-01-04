@@ -1,21 +1,15 @@
 from prophet import Prophet
 import pandas as pd
 
-def forecast_series(df, date_col, value_col, periods=10):
-    data = df[[date_col, value_col]].copy()
-
-    # Convert year or date to datetime (VERY IMPORTANT)
-    if not pd.api.types.is_datetime64_any_dtype(data[date_col]):
-        data[date_col] = pd.to_datetime(
-            data[date_col].astype(str) + "-12-31"
-        )
-
-    data = data.rename(columns={date_col: "ds", value_col: "y"})
+def forecast_for_date(df, date_col, value_col, target_date):
+    data = df[[date_col, value_col]].rename(
+        columns={date_col: "ds", value_col: "y"}
+    )
 
     model = Prophet()
-    model.fit(data)   # ← YOU MISSED THIS
+    model.fit(data)
 
-    future = model.make_future_dataframe(periods=periods, freq="Y")
+    future = pd.DataFrame({"ds": [pd.to_datetime(target_date)]})
     forecast = model.predict(future)
 
-    return forecast[["ds", "yhat"]]
+    return float(forecast["yhat"].iloc[0])
