@@ -30,7 +30,7 @@ yearly = df.groupby("Year").agg({
 st.line_chart(yearly.set_index("Year")[TEMP_MAX_COL])
 st.line_chart(yearly.set_index("Year")[TEMP_MIN_COL])
 st.line_chart(yearly.set_index("Year")[RAIN_COL])
-from src.forecasting import forecast_series
+
 
 st.subheader("🔮 Future Temperature Forecast (Next 10 Years)")
 
