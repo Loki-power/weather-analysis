@@ -27,10 +27,15 @@ yearly = df.groupby("Year").agg({
 }).reset_index()
 
 # ---------------- PLOTS ----------------
+st.markdown("## 📈 Yearly Average Maximum Temperature (°C)")
 st.line_chart(yearly.set_index("Year")[TEMP_MAX_COL])
+
+st.markdown("## 📉 Yearly Average Minimum Temperature (°C)")
 st.line_chart(yearly.set_index("Year")[TEMP_MIN_COL])
+
+st.markdown("## 🌧️ Yearly Average Rainfall (mm)")
 st.line_chart(yearly.set_index("Year")[RAIN_COL])
-import streamlit as st
+
 from src.forecasting import forecast_for_date
 
 st.markdown("## 🔮 Predict Weather for Any Future Date")
