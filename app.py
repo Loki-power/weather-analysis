@@ -1,3 +1,4 @@
+
 import pandas as pd
 import streamlit as st
 from src.data_loader import load_data
@@ -35,6 +36,26 @@ st.line_chart(yearly.set_index("Year")[TEMP_MIN_COL])
 
 st.markdown("## 🌧️ Yearly Average Rainfall (mm)")
 st.line_chart(yearly.set_index("Year")[RAIN_COL])
+# Year Range Slider
+st.sidebar.header("📅 Year Filter")
+
+min_year = int(df['Date'].dt.year.min())
+max_year = int(df['Date'].dt.year.max())
+
+year_range = st.sidebar.slider(
+    "Select Year Range",
+    min_value=min_year,
+    max_value=max_year,
+    value=(min_year, max_year)
+)
+
+df = df[
+    (df['Date'].dt.year >= year_range[0]) &
+    (df['Date'].dt.year <= year_range[1])
+]
+
+
+
 
 from src.forecasting import forecast_for_date
 
@@ -72,5 +93,3 @@ if st.button("Predict Temperature"):
     )
 
     st.success(f"🌡️ Predicted Max Temperature on {input_date}: **{prediction:.2f} °C**")
-
-

@@ -31,3 +31,4 @@ def plot_rainfall(trend):
 
     return fig
 
+
