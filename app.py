@@ -1,4 +1,4 @@
-
+from src.forecasting import forecast_temperature
 import pandas as pd
 import streamlit as st
 from src.data_loader import load_data
@@ -93,3 +93,22 @@ if st.button("Predict Temperature"):
     )
 
     st.success(f"🌡️ Predicted Max Temperature on {input_date}: **{prediction:.2f} °C**")
+st.markdown("---")
+st.subheader("🔮 Future Temperature Forecast")
+
+future_year = st.number_input(
+    "Enter a future year",
+    min_value=max_year + 1,
+    max_value=2100,
+    value=max_year + 5
+)
+
+pred_max = forecast_temperature(df, "Temp Max", future_year)
+pred_min = forecast_temperature(df, "Temp Min", future_year)
+
+st.success(
+    f"📈 Predicted Max Temp in {future_year}: {pred_max:.2f} °C"
+)
+st.info(
+    f"📉 Predicted Min Temp in {future_year}: {pred_min:.2f} °C"
+)
