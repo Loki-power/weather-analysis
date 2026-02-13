@@ -1,4 +1,4 @@
-from src.forecasting import forecast_temperature
+from src.forecasting import forecast_for_date, forecast_temperature
 import pandas as pd
 import streamlit as st
 from src.data_loader import load_data
